@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Fitness AI{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+
+    <!-- AOS (Animaciones al hacer scroll) -->
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+</head>
+
+<body>
+
+    <header>
+        <nav class="navbar">
+            <ul class="navbar-nav">
+                <li><a href="{% url 'index' %}" class="nav-link">Inicio</a></li>
+                <li><a href="{% url 'entrenadores' %}" class="nav-link">Entrenadores</a></li>
+                <li><a href="{% url 'nutricionistas' %}" class="nav-link">Nutricionistas</a></li>
+
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'progreso' %}" class="nav-link">Progreso</a></li>
+                <li><a href="{% url 'perfil' %}" class="nav-link">Mi Perfil</a></li>
+                <li>
+                    <form action="{% url 'logout' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="button-login">Cerrar sesión</button>
+                    </form>
+                </li>
+                {% else %}
+                <li><a href="{% url 'login' %}" class="button-login">Iniciar sesión</a></li>
+                <li><a href="{% url 'registro' %}" class="button-login">Registrate</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Fitness AI - Todos los derechos reservados</p>
+    </footer>
+
+    <!-- AOS.js -->
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>AOS.init({ duration: 1000, once: true });</script>
+    <script> function toggleInfo(card) { card.classList.toggle('active'); } </script>
+
+</body>
+
+</html>

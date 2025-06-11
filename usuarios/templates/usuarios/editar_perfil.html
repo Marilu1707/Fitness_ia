@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Editar Perfil{% endblock %}
+
+{% block content %}
+<section class="form-container">
+  <div class="glass-form">
+    <h2>Editar Datos Personales</h2>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn-glow">Guardar</button>
+    </form>
+    <a href="{% url 'perfil' %}" class="btn-glow" style="margin-top:1rem;">Volver al Perfil</a>
+  </div>
+</section>
+{% endblock %}

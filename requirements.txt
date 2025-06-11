@@ -1,0 +1,12 @@
+Django>=5.0
+python-dotenv
+pandas
+scikit-learn
+joblib
+xhtml2pdf
+twilio
+APScheduler
+django-crispy-forms
+crispy-bootstrap5
+openai
+weasyprint

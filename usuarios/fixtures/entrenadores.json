@@ -1,0 +1,38 @@
+[
+    {
+        "model": "usuarios.profesional",
+        "pk": 4,
+        "fields": {
+            "nombre": "Pablo Torres",
+            "tipo": "entrenador",
+            "especialidad": "Entrenamiento funcional",
+            "telefono": "+54 11 3408-7643",
+            "ubicacion": "Buenos Aires",
+            "foto": "profesionales/entrenador1.png"
+        }
+    },
+    {
+        "model": "usuarios.profesional",
+        "pk": 5,
+        "fields": {
+            "nombre": "Valentina Díaz",
+            "tipo": "entrenador",
+            "especialidad": "Fuerza y resistencia",
+            "telefono": "+54 11 5567-8890",
+            "ubicacion": "Córdoba",
+            "foto": "profesionales/entrenador2.png"
+        }
+    },
+    {
+        "model": "usuarios.profesional",
+        "pk": 6,
+        "fields": {
+            "nombre": "Carlos Mendez",
+            "tipo": "entrenador",
+            "especialidad": "Hipertrofia y definición",
+            "telefono": "+54 11 9988-1122",
+            "ubicacion": "Rosario",
+            "foto": "profesionales/entrenador3.png"
+        }
+    }
+]

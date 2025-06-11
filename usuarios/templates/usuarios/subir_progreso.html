@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Subir Progreso{% endblock %}
+
+{% block content %}
+<section class="subir-progreso">
+  <h2>Nuevo Progreso</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="form-grid">
+      <div class="form-block">
+        <label for="{{ form.fecha.id_for_label }}">Fecha:</label>
+        {{ form.fecha }}
+      </div>
+      <div class="form-block">
+        <label for="{{ form.imagen.id_for_label }}">Subir Foto:</label>
+        {{ form.imagen }}
+      </div>
+      <div class="form-block">
+        <label for="{{ form.peso_actual.id_for_label }}">Peso actual (kg):</label>
+        {{ form.peso_actual }}
+      </div>
+      <div class="form-block">
+        <label for="{{ form.horas.id_for_label }}">Horas entrenadas:</label>
+        {{ form.horas }}
+      </div>
+    </div>
+    <div class="submit-wrapper">
+      <button type="submit" class="btn-glow">Guardar</button>
+    </div>
+  </form>
+</section>
+{% endblock %}

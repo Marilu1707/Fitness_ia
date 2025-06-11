@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Mi Objetivo{% endblock %}
+
+{% block content %}
+<section class="form-container">
+  <div class="card glass">
+    <h2>🎯 Mi Objetivo</h2>
+
+    <form method="post">
+      {% csrf_token %}
+      <label for="id_tipo">Tipo:</label>
+      {{ form.tipo }}
+      <label for="id_peso_deseado">Peso deseado:</label>
+      {{ form.peso_deseado }}
+      <label for="id_dias_entrenamiento">Días entrenamiento:</label>
+      {{ form.dias_entrenamiento }}
+      <button type="submit" class="btn-glow">Guardar Objetivo</button>
+    </form>
+
+    <a href="{% url 'perfil' %}" class="btn-glow" style="margin-top: 1rem;">Volver al Perfil</a>
+  </div>
+</section>
+{% endblock %}

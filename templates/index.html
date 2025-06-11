@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+<section class="hero" id="inicio">
+    <div class="hero-content">
+        <h1>Fitness AI</h1>
+        <p>Tu entrenador personal con inteligencia artificial</p>
+        <div class="timer">
+            {% if user.is_authenticated %}
+            <div><strong>{{ total_horas|default:"--" }} h</strong><br>Entrenamiento</div>
+            <div><strong>{{ peso_actual|default:"--" }} kg</strong><br>Peso actual</div>
+            <div>
+                <strong>
+                    {% if diferencia < 0 %}
+                        -{{ diferencia_abs }} kg
+                    {% elif diferencia > 0 %}
+                        +{{ diferencia_abs }} kg
+                    {% else %}
+                        ±0 kg
+                    {% endif %}
+                </strong><br>Cambio de peso
+            </div>
+            {% else %}
+            <div><strong>IA personalizada</strong><br>para vos</div>
+            <div><strong>Rutinas únicas</strong><br>para tus objetivos</div>
+            <div><strong>Entrená</strong><br>desde casa o el gym</div>
+            {% endif %}
+        </div>
+        <div class="buttons">
+            {% if user.is_authenticated %}
+            <a href="{% url 'dashboard' %}" class="btn-glow">Ir al Panel</a>
+            {% else %}
+            <a href="{% url 'registro' %}" class="btn-glow">Sumate</a>
+            <a href="{% url 'login' %}" class="btn-glow">Vista previa</a>
+            {% endif %}
+        </div>
+    </div>
+
+</section>
+
+<section class="section exercises">
+    <h2>Ejercicios Populares</h2>
+    <div class="grid exercises-grid">
+        <div class="card"><img src="{% static 'img/treadmill.png' %}" alt="Cinta de correr"><h3>Cinta de correr</h3></div>
+        <div class="card"><img src="{% static 'img/stretching.png' %}" alt="Estiramientos"><h3>Estiramientos</h3></div>
+        <div class="card"><img src="{% static 'img/running.png' %}" alt="Correr"><h3>Correr</h3></div>
+        <div class="card"><img src="{% static 'img/lifting.png' %}" alt="Levantamiento"><h3>Levantamiento</h3></div>
+        <div class="card"><img src="{% static 'img/pushup.png' %}" alt="Flexiones"><h3>Flexiones</h3></div>
+        <div class="card"><img src="{% static 'img/yoga.png' %}" alt="Yoga"><h3>Yoga</h3></div>
+    </div>
+</section>
+
+<section class="section custom">
+    <h2>Rutina Personalizada hecha para ti</h2>
+    <div class="login-block">
+        {% if not user.is_authenticated %}
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Usuario" required>
+            <input type="password" name="password" placeholder="Contraseña" required>
+            <button type="submit" class="btn-glow">Ingresar</button>
+        </form>
+        <a href="{% url 'registro' %}" class="btn-glow">Registrate</a>
+        {% else %}
+        <a href="{% url 'rutina' %}" class="btn-glow">Ver mi Rutina</a>
+        {% endif %}
+    </div>
+</section>
+
+<section class="section trainers">
+    <h2>Nuestros Entrenadores</h2>
+    <div class="grid trainers-grid">
+        <div class="card trainer"><img src="{% static 'img/trainer1.png' %}" alt="Entrenador 1"><h3>Martín</h3></div>
+        <div class="card trainer"><img src="{% static 'img/trainer2.png' %}" alt="Entrenador 2"><h3>Sofía</h3></div>
+        <div class="card trainer"><img src="{% static 'img/trainer3.png' %}" alt="Entrenador 3"><h3>Lucas</h3></div>
+    </div>
+</section>
+
+<section class="section categories">
+    <h2>Categorías</h2>
+    <ul class="categories-list">
+        <li>Entrena en Casa</li>
+        <li>Alta Intensidad</li>
+        <li>Quemar Calorías</li>
+    </ul>
+</section>
+{% endblock %}

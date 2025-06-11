@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Nutricionistas{% endblock %}
+
+{% block content %}
+<section class="profile-container">
+  <h2>🥗 Nutricionistas Disponibles</h2>
+  <div class="grid-profesionales">
+    {% for prof in profesionales %}
+    <div class="card-profesional" onclick="toggleInfo(this)">
+      <img src="{{ prof.foto.url }}" alt="{{ prof.nombre }}">
+      <h3>{{ prof.nombre }}</h3>
+      <div class="info-hidden">
+        <p><strong>Especialidad:</strong> {{ prof.especialidad }}</p>
+        <p><strong>Teléfono:</strong> {{ prof.telefono }}</p>
+        <p><strong>Ubicación:</strong> {{ prof.ubicacion }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

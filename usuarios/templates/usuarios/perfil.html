@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Mi Perfil{% endblock %}
+{% block content %}
+
+<div class="perfil-container profile-container-grid">
+
+    <!-- Columna izquierda -->
+    <div class="col-izquierda">
+        <div class="panel card glass bloque">
+            <h2>Datos del Usuario</h2>
+
+            {% if modo_edicion %}
+            <form method="post" action="{% url 'perfil' %}">
+                {% csrf_token %}
+                {{ perfil_form.as_p }}
+                <button type="submit" class="btn-glow boton">Guardar</button>
+            </form>
+            {% else %}
+            <p><strong>Edad:</strong> {{ perfil.edad }}</p>
+            <p><strong>Peso:</strong> {{ perfil.peso }} kg</p>
+            <p><strong>Altura:</strong> {{ perfil.altura }} m</p>
+            <a href="{% url 'editar_perfil' %}" class="btn-glow boton">Editar</a>
+
+
+            {% endif %}
+        </div>
+
+
+        <div class="panel card glass bloque">
+            <h2>Objetivo</h2>
+            {% if objetivo %}
+            <p><strong>Tipo:</strong> {{ objetivo.tipo }}</p>
+            <p><strong>Peso deseado:</strong> {{ objetivo.peso_deseado }} kg</p>
+            <p><strong>Días de entrenamiento:</strong> {{ objetivo.dias_entrenamiento }}</p>
+            <a href="{% url 'editar_objetivo' %}" class="btn-glow boton">Editar</a>
+            {% else %}
+            <p>No hay objetivo configurado.</p>
+            <a href="{% url 'editar_objetivo' %}" class="btn-glow boton">Configurar</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Columna central -->
+    <div class="col-centro">
+        <div class="panel card glass rutina-card bloque">
+            <h2>Rutina del Día</h2>
+            {% if rutina %}
+            <pre>{{ rutina }}</pre>
+            {% else %}
+            <p>Aún no se ha generado una rutina.</p>
+            <a href="{% url 'rutina' %}" class="btn-glow boton">Generar Rutina</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Columna derecha -->
+    <div class="col-derecha">
+        <div class="panel card glass bloque">
+            <h2>Última Foto de Progreso</h2>
+            {% if ultima_foto and ultima_foto.imagen %}
+             <img src="{{ ultima_foto.imagen.url }}" alt="Última foto" class="progreso-foto">
+             <p>{{ ultima_foto.fecha }}</p>
+            {% else %}
+             <p>Aún no subiste ninguna foto.</p>
+            {% endif %}
+
+            <a href="{% url 'progreso' %}" class="btn-glow boton">Ver Galería</a>
+            <a href="{% url 'subir_progreso' %}" class="btn-glow boton">Subir Nueva</a>
+        </div>
+
+        <div class="panel card glass bloque">
+            <h3>¿Cuántas horas entrenaste hoy?</h3>
+            <form method="post" action="{% url 'agregar_horas' %}">
+                {% csrf_token %}
+                <div class="horas-form">
+                    <input type="number" name="horas" step="0.5" placeholder="Ej: 2" required>
+                    <button type="submit" class="btn-horas boton">Subir horas</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+</div>
+<!-- Fila inferior de videos -->
+<div class="video-section">
+    <div class="card glass">
+        <h2>Entrenamientos en Casa</h2>
+        <div class="video-grid">
+            <div class="video-card">
+                <iframe width="100%" height="200" src="https://www.youtube.com/embed/VIDEO_ID_1" frameborder="0"
+                    allowfullscreen></iframe>
+                <p>Entrenamiento 1</p>
+            </div>
+            <div class="video-card">
+                <iframe width="100%" height="200" src="https://www.youtube.com/embed/VIDEO_ID_2" frameborder="0"
+                    allowfullscreen></iframe>
+                <p>Entrenamiento 2</p>
+            </div>
+            <div class="video-card">
+                <iframe width="100%" height="200" src="https://www.youtube.com/embed/VIDEO_ID_3" frameborder="0"
+                    allowfullscreen></iframe>
+                <p>Entrenamiento 3</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

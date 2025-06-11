@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Entrenadores Personales{% endblock %}
+
+{% block content %}
+<section class="entrenadores">
+  <h2 class="section-title">🏋️ Entrenadores Disponibles</h2>
+
+  <div class="card-container">
+    {% for entrenador in profesionales %}
+    <div class="card" onclick="toggleInfo(this)">
+      <img src="{{ entrenador.foto.url }}" alt="{{ entrenador.nombre }}">
+      <h3>{{ entrenador.nombre }}</h3>
+      <div class="info-hidden">
+        <p><strong>Especialidad:</strong> {{ entrenador.especialidad }}</p>
+        <p><strong>Teléfono:</strong> {{ entrenador.telefono }}</p>
+        <p><strong>Ubicación:</strong> {{ entrenador.ubicacion }}</p>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

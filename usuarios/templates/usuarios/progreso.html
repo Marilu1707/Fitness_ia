@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Mi Progreso{% endblock %}
+
+{% block content %}
+<section class="progreso-section">
+  <div class="stats-column">
+    <div class="card glass stat-card">
+      <h3>⏱️ Tiempo entrenado</h3>
+      <p>{{ total_horas }} horas</p>
+    </div>
+    <div class="card glass stat-card">
+      <h3>📈 Peso actual</h3>
+      <p>{{ peso_actual }} kg</p>
+    </div>
+    <div class="card glass stat-card">
+      <h3>🏁 Peso inicial</h3>
+      <p>{{ peso_inicial }} kg</p>
+    </div>
+    <div class="card glass stat-card">
+      <h3>📊 Diferencia</h3>
+      <p>{{ diferencia }} kg</p>
+    </div>
+    <div class="card glass stat-card">
+      <h3>📄 Reporte</h3>
+      <a href="{% url 'reporte_pdf' %}" class="btn-glow">Descargar PDF</a>
+    </div>
+  </div>
+
+  <div class="galeria-column">
+    <div class="galeria-grid">
+      {% for progreso in progresos %}
+      <div class="card foto-card">
+        {% if progreso.imagen %}
+        <img src="{{ progreso.imagen.url }}" alt="Progreso {{ forloop.counter }}" class="imagen-progreso">
+        {% else %}
+        <div class="foto-placeholder">Sin imagen</div>
+        {% endif %}
+        <p class="foto-fecha">{{ progreso.fecha }}</p>
+      </div>
+      {% endfor %}
+    </div>
+    <a href="{% url 'subir_progreso' %}" class="boton-fluor">Subir Nueva</a>
+  </div>
+</section>
+
+{% endblock %}
