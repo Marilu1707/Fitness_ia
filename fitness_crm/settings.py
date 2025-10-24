@@ -22,15 +22,12 @@ def get_env_list(var_name: str, default: list[str]) -> list[str]:
 DEBUG = os.getenv("DJANGO_DEBUG", "False").lower() in {"true", "1", "yes"}
 
 DEFAULT_ALLOWED_HOSTS = [
-    "fitness-crm-ia.vercel.app",
     "127.0.0.1",
     "localhost",
 ]
 ALLOWED_HOSTS = get_env_list("DJANGO_ALLOWED_HOSTS", DEFAULT_ALLOWED_HOSTS)
 
 DEFAULT_CSRF_TRUSTED_ORIGINS = [
-    "https://fitness-crm-ia.vercel.app",
-    "https://*.vercel.app",
     "http://localhost",
     "http://127.0.0.1",
 ]
