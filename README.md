@@ -1,119 +1,168 @@
-# 🧠 Fitness CRM con Inteligencia Artificial
+🧠 Fitness CRM con Inteligencia Artificial (Django)
 
-Este proyecto es un **sistema web inteligente** para usuarios que desean alcanzar objetivos de entrenamiento físico, con un panel personalizado que registra su progreso, genera rutinas automáticas y permite visualizar estadísticas y fotos. Está desarrollado con **Django**, integrando una lógica de IA para crear rutinas adaptadas al perfil del usuario.
+Sistema web para alcanzar objetivos de entrenamiento: panel personalizado, rutinas automáticas (IA simulada), estadísticas y fotos de progreso.
+Desarrollado con Django 5, HTML/CSS/JS (modo oscuro), SQLite, xhtml2pdf para reportes.
 
----
+🚀 Funcionalidades
 
-## 🚀 Funcionalidades
+✅ Registro/Login de usuarios
 
-- ✅ Registro/Login de usuarios
-- 👤 Gestión del perfil (edad, altura, peso, nivel)
-- 🎯 Definición de objetivos: tipo, peso deseado, días de entrenamiento
-- 📸 Carga de fotos de progreso
-- 📅 Historial de progreso (fecha, peso, horas entrenadas)
-- 📈 Estadísticas automáticas: peso actual, diferencia, total de horas
-- 🧠 Generación automática de rutina personalizada (IA simulada)
-- 📄 Descarga de reporte en PDF
-- 🌙 Modo oscuro + estilo moderno con detalles flúo
+👤 Perfil (edad, altura, peso, nivel)
 
----
+🎯 Objetivos (tipo, peso deseado, días/semana)
 
-## 🛠️ Tecnologías usadas
+📸 Fotos de progreso (media local)
 
-- **Backend**: Django 5.x
-- **Frontend**: HTML5 + CSS3 (modo oscuro), JavaScript (ligero)
-- **Base de datos**: SQLite
-- **PDF Generator**: xhtml2pdf
-- **IA (simulada)**: `generador.py` (reglas inteligentes adaptadas)
-- **Control de versiones**: Git + GitHub
+📅 Historial (fecha, peso, horas entrenadas)
 
----
+📈 Estadísticas: peso actual, diferencia, horas totales
 
-## 📂 Estructura del proyecto
+🧠 Rutina personalizada (IA simulada en ia/generador.py)
 
-```
-fitness_crm_ia/
-├── usuarios/
-│   ├── models.py
-│   ├── views.py
-│   ├── forms.py
-│   ├── templates/
-│   │   └── usuarios/
-│   │       ├── dashboard.html
-│   │       ├── perfil.html
-│   │       ├── rutina.html
-│   │       └── ...
-├── ia/
-│   └── generador.py
-├── static/
-│   └── css/
-│       └── styles.css
-├── media/
-│   └── (fotos de progreso)
-├── db.sqlite3
-└── manage.py
-```
+📄 Descarga de reporte en PDF (en memoria)
 
----
+🌙 Modo oscuro + estilo moderno
 
-## 🔧 Instalación y uso
+🧩 Tecnologías
 
-1. **Cloná el repositorio**  
-```bash
-git clone https://github.com/tuusuario/fitness-crm-ia.git
-cd fitness-crm-ia
-```
+Backend: Django 5.x
 
-2. **Crea y activa un entorno virtual**  
-```bash
-python -m venv venv
-source venv/bin/activate  # en Windows: venv\Scripts\activate
-```
+Frontend: HTML5 + CSS3 (dark), JavaScript ligero
 
-3. **Instala las dependencias**  
-```bash
+Base de datos: SQLite (dev)
+
+PDF: xhtml2pdf
+
+Imágenes: Pillow
+
+Control de versiones: Git/GitHub
+
+📦 Requisitos
+
+Python 3.11+
+
+Pip
+
+(Opcional) Git
+
+⚙️ Instalación y ejecución (local)
+
+Abrí una terminal en la carpeta del repositorio y seguí estos pasos.
+
+Crear y activar entorno virtual (si no existe .venv/)
+
+Windows (PowerShell)
+
+python -m venv .venv
+.\.venv\Scripts\activate
+
+
+Linux / macOS
+
+python3 -m venv .venv
+source .venv/bin/activate
+
+
+Instalar dependencias
+
 pip install -r requirements.txt
-```
 
-4. **Realizá migraciones**  
-```bash
+
+Migraciones
+
 python manage.py makemigrations
 python manage.py migrate
-```
 
-5. **Corre el servidor local**  
-```bash
+
+(Opcional) Crear superusuario
+
+python manage.py createsuperuser
+
+
+Ejecutar el servidor
+
 python manage.py runserver
-```
 
-6. **Accedé a la app**  
-📍 Ir a [http://127.0.0.1:8000](http://127.0.0.1:8000)
 
----
+Abrí: http://127.0.0.1:8000
 
-## 📸 Capturas de pantalla
+🗂️ Estructura (resumen)
+fitness_crm_ia/
+├─ fitness_crm/           # settings.py, urls.py, wsgi.py
+├─ usuarios/                 # modelos, vistas, forms, templates/usuarios/
+├─ ia/
+│  └─ generador.py           # lógica IA simulada
+├─ templates/                # base.html, templates compartidos
+│  └─ usuarios/              # dashboard.html, perfil.html, rutina.html, etc.
+├─ static/
+│  └─ css/styles.css         # modo oscuro
+├─ media/                    # fotos de progreso (local)
+├─ requirements.txt
+└─ manage.py
 
-> (Podés agregar imágenes de tu dashboard, rutina y progreso acá)
 
----
+Ajustá si tu estructura difiere, pero mantené manage.py, settings.py, urls.py, wsgi.py.
 
-## 📌 Nota
+🔌 Configuración clave (settings)
+LANGUAGE_CODE = "es-ar"  # o "es-es"
+TIME_ZONE = "America/Argentina/Buenos_Aires"
 
-Este proyecto está diseñado como portfolio personal, demostrando habilidades en:
+STATIC_URL = "/static/"
+# En desarrollo:
+# STATICFILES_DIRS = [BASE_DIR / "static"]  # si usás carpeta global 'static'
+# En despliegue clásico:
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
-- Manejo de datos de usuarios
-- Generación de contenido automatizado
-- Diseño responsive y visual atractivo
-- Lógica condicional personalizada
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
----
 
-## 📬 Contacto
+En urls.py (desarrollo) servir media si DEBUG es True:
 
-Si tenés dudas o sugerencias, podés escribirme a: **[tuemail@dominio.com]**
+from django.conf import settings
+from django.conf.urls.static import static
 
----
+urlpatterns = [
+    # ... tus rutas
+]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-## 🧠 Autor
+🔍 Flujo de uso
 
-Maria Lujan Massironi — 2025
+Registrate o iniciá sesión.
+
+Completá tu perfil (edad, altura, peso, nivel) y objetivos.
+
+Cargá tus fotos de progreso y registrá tu historial (fecha, peso, horas).
+
+Generá tu rutina personalizada (IA simulada).
+
+Consultá estadísticas y descargá PDF del reporte.
+
+🧪 Troubleshooting
+
+404 en la raíz (/)
+
+Verificá que en fitness_crm_ia/urls.py exista path("", home, name="home") y que la vista home esté implementada (p.ej., en core/views.py o dashboard de usuarios).
+
+TemplateDoesNotExist
+
+Confirmá TEMPLATES[0]['DIRS'] y que los archivos estén en templates/.
+
+Asegurá {% load static %} en las plantillas que usan recursos estáticos.
+
+Cargas de imágenes fallan
+
+Verificá MEDIA_URL, MEDIA_ROOT y que estás sirviendo media en DEBUG.
+
+Asegurá Pillow en requirements.txt.
+
+PDF no se genera
+
+Revisá que la vista use BytesIO y xhtml2pdf, y que los paths a CSS/estáticos sean resolubles en el contexto del template.
+
+🧾 Licencia y autora
+
+Proyecto de portfolio académico.
+Autora: María Luján Massironi — 2025.

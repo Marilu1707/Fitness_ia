@@ -8,11 +8,11 @@
   <h2>💪 Tu Rutina Personalizada</h2>
 
   {% if sin_objetivo %}
-  <p>No hay objetivo configurado.</p>
+    <p>No hay objetivo configurado. Completá tu perfil para obtener una rutina personalizada.</p>
   {% elif rutina %}
-  <pre style="white-space: pre-wrap;">{{ rutina }}</pre>
+    {% include "usuarios/includes/rutina_detalle.html" with rutina=rutina %}
   {% else %}
-  <p>No se pudo generar la rutina en este momento.</p>
+    <p>No se pudo generar la rutina en este momento. Intentá nuevamente más tarde.</p>
   {% endif %}
 
   <a href="{% url 'dashboard' %}" class="btn-glow" style="margin-top: 1rem;">Volver al Dashboard</a>

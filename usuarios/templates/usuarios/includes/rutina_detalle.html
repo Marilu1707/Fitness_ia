@@ -1,0 +1,35 @@
+{% comment %}Bloque reutilizable para mostrar la rutina generada{% endcomment %}
+<div class="rutina-detalle">
+  {% if rutina %}
+    {% for dia in rutina %}
+      <article class="rutina-dia card glass bloque">
+        <h3>Día {{ dia.dia }} · {{ dia.titulo }}</h3>
+        <p class="rutina-duracion">Duración estimada: {{ dia.duracion_estimada }} minutos</p>
+        <ul class="rutina-ejercicios">
+          {% for ejercicio in dia.ejercicios %}
+            <li>
+              <strong>{{ ejercicio.nombre }}</strong>
+              <span class="series">{{ ejercicio.series }}</span>
+              <br>
+              <small>{{ ejercicio.descripcion }}</small>
+            </li>
+          {% endfor %}
+        </ul>
+      </article>
+    {% endfor %}
+    {% with primera=rutina|first %}
+      {% if primera.recomendaciones %}
+        <div class="rutina-recomendaciones card glass bloque">
+          <h4>Recomendaciones generales</h4>
+          <ul>
+            {% for recomendacion in primera.recomendaciones %}
+              <li>{{ recomendacion }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+    {% endwith %}
+  {% else %}
+    <p>Aún no se ha generado una rutina.</p>
+  {% endif %}
+</div>
