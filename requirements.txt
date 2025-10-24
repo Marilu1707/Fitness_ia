@@ -9,4 +9,3 @@ APScheduler
 django-crispy-forms
 crispy-bootstrap5
 openai
-weasyprint
