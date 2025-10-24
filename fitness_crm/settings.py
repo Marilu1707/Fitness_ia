@@ -10,8 +10,33 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Seguridad
 SECRET_KEY = os.getenv("DJANGO_SECRET_KEY", "clave-insegura-por-defecto")
-DEBUG = True
-ALLOWED_HOSTS = []
+def get_env_list(var_name: str, default: list[str]) -> list[str]:
+    """Return a cleaned list of values from a comma-separated environment variable."""
+
+    value = os.getenv(var_name)
+    if value:
+        return [item.strip() for item in value.split(",") if item.strip()]
+    return default
+
+
+DEBUG = os.getenv("DJANGO_DEBUG", "False").lower() in {"true", "1", "yes"}
+
+DEFAULT_ALLOWED_HOSTS = [
+    "fitness-crm-ia.vercel.app",
+    "127.0.0.1",
+    "localhost",
+]
+ALLOWED_HOSTS = get_env_list("DJANGO_ALLOWED_HOSTS", DEFAULT_ALLOWED_HOSTS)
+
+DEFAULT_CSRF_TRUSTED_ORIGINS = [
+    "https://fitness-crm-ia.vercel.app",
+    "https://*.vercel.app",
+    "http://localhost",
+    "http://127.0.0.1",
+]
+CSRF_TRUSTED_ORIGINS = get_env_list(
+    "DJANGO_CSRF_TRUSTED_ORIGINS", DEFAULT_CSRF_TRUSTED_ORIGINS
+)
 
 # Aplicaciones instaladas
 INSTALLED_APPS = [
@@ -83,11 +108,15 @@ USE_TZ = True
 
 # Archivos estáticos
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / "static"]
+
+STATIC_ROOT = BASE_DIR / "staticfiles"
+STATICFILES_DIRS = [BASE_DIR / "static"] if (BASE_DIR / "static").exists() else []
 
 # Archivos multimedia (fotos, PDFs, etc.)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / "media"
+
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
 # Modelo de ID por defecto
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
