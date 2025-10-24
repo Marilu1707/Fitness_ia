@@ -13,25 +13,92 @@
 </head>
 <body>
     <h1>Reporte de Progreso de {{ usuario.username }}</h1>
-    <p>Edad: {{ perfil.edad }} años | Peso: {{ perfil.peso }} kg | Altura: {{ perfil.altura }} cm</p>
-    <p>Objetivo: {{ objetivo.tipo }}</p>
+    <p>
+        Edad: {{ perfil.edad }} años |
+        Peso actual: {{ peso_actual|default:"--" }} kg |
+        Altura: {{ perfil.altura }} m
+    </p>
+    {% if objetivo %}
+    <p>Objetivo: {{ objetivo.tipo }} · Días de entrenamiento: {{ objetivo.dias_entrenamiento }}</p>
+    {% endif %}
 
-    <h2>Historial</h2>
+    <h2>Resumen</h2>
+    <table>
+        <tr>
+            <th>Peso inicial</th>
+            <th>Peso actual</th>
+            <th>Diferencia</th>
+            <th>Horas acumuladas</th>
+        </tr>
+        <tr>
+            <td>{{ peso_inicial|default:"--" }} kg</td>
+            <td>{{ peso_actual|default:"--" }} kg</td>
+            <td>{{ diferencia }} kg</td>
+            <td>{{ total_horas }} h</td>
+        </tr>
+    </table>
+
+    <h2>Historial de mediciones</h2>
     <table>
         <thead>
             <tr>
                 <th>Fecha</th>
-                <th>Peso</th>
+                <th>Peso (kg)</th>
+                <th>Horas entrenadas</th>
             </tr>
         </thead>
         <tbody>
             {% for prog in progresos %}
             <tr>
                 <td>{{ prog.fecha|date:"d/m/Y" }}</td>
-                <td>{{ prog.peso_actual }} kg</td>
+                <td>{{ prog.peso_actual|default:"--" }}</td>
+                <td>{{ prog.horas|default:0 }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3">No hay registros de progreso cargados.</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
+
+    {% if rutina %}
+    <h2>Rutina sugerida</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Día</th>
+                <th>Foco</th>
+                <th>Ejercicios</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for dia in rutina %}
+            <tr>
+                <td>Día {{ dia.dia }}</td>
+                <td>{{ dia.titulo }}</td>
+                <td>
+                    <ul>
+                        {% for ejercicio in dia.ejercicios %}
+                        <li><strong>{{ ejercicio.nombre }}</strong> - {{ ejercicio.series }}. {{ ejercicio.descripcion }}</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    {% with primera=rutina|first %}
+        {% if primera.recomendaciones %}
+        <h3>Recomendaciones generales</h3>
+        <ul>
+            {% for recomendacion in primera.recomendaciones %}
+            <li>{{ recomendacion }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    {% endwith %}
+    {% endif %}
 </body>
 </html>

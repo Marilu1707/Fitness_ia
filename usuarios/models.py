@@ -32,9 +32,13 @@ class Objetivo(models.Model):
 class Progreso(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     fecha = models.DateField()
-    imagen = models.ImageField(upload_to='progreso/', blank=False, null=False)
+    imagen = models.ImageField(upload_to='progreso/', blank=True, null=True)
     peso_actual = models.FloatField(null=True, blank=True)
-    horas = models.FloatField(default=0) 
+    horas = models.FloatField(default=0)
+
+    class Meta:
+        ordering = ["-fecha", "-id"]
+
     def __str__(self):
         return f"Progreso de {self.usuario.username} - {self.fecha}"
 

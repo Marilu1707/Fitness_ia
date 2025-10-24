@@ -25,6 +25,8 @@
       <p><strong>Edad:</strong> {{ perfil.edad }}</p>
       <p><strong>Peso:</strong> {{ perfil.peso }} kg</p>
       <p><strong>Altura:</strong> {{ perfil.altura }} m</p>
+      <p><strong>Nivel:</strong> {{ perfil.get_nivel_display }}</p>
+      <p><strong>Días por semana:</strong> {{ perfil.dias_entrenamiento }}</p>
       <a href="{% url 'editar_perfil' %}" class="btn-glow boton">Editar</a>
 
 
@@ -51,10 +53,11 @@
     <div class="panel card glass rutina-card bloque">
       <h2>Rutina del Día</h2>
       {% if rutina %}
-      <pre>{{ rutina }}</pre>
+        {% include "usuarios/includes/rutina_detalle.html" with rutina=rutina|slice:":1" %}
+        <a href="{% url 'rutina' %}" class="btn-glow boton">Ver rutina completa</a>
       {% else %}
-      <p>Aún no se ha generado una rutina.</p>
-      <a href="{% url 'rutina' %}" class="btn-glow boton">Generar Rutina</a>
+        <p>Aún no se ha generado una rutina.</p>
+        <a href="{% url 'rutina' %}" class="btn-glow boton">Generar Rutina</a>
       {% endif %}
     </div>
   </div>
